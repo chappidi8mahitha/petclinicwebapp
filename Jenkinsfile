@@ -1,16 +1,19 @@
 pipeline {
     agent any
-
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                sh "mvn clean compile"
+                git 'https://github.com/chappidi8mahitha/petclinicwebapp.git'
             }
         }
-
-        stage('Test') {
+        stage('Build') {
             steps {
-               echo " Test stages..."
+                sh 'mvn clean install'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'mvn deploy'
             }
         }
     }
